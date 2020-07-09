@@ -1,11 +1,14 @@
 package fauxgl
 
 type Vertex struct {
-	Position Vector
-	Normal   Vector
-	Texture  Vector
-	Color    Color
-	Output   VectorW
+	Position  Vector
+	Normal    Vector
+	Tangent   Vector
+	Bitangent Vector
+	Texture   Vector
+	Color     Color
+	Output    VectorW
+
 	// Vectors  []Vector
 	// Colors   []Color
 	// Floats   []float64
@@ -19,6 +22,8 @@ func InterpolateVertexes(v1, v2, v3 Vertex, b VectorW) Vertex {
 	v := Vertex{}
 	v.Position = InterpolateVectors(v1.Position, v2.Position, v3.Position, b)
 	v.Normal = InterpolateVectors(v1.Normal, v2.Normal, v3.Normal, b).Normalize()
+	v.Tangent = InterpolateVectors(v1.Tangent, v2.Tangent, v3.Tangent, b).Normalize()
+	v.Bitangent = InterpolateVectors(v1.Bitangent, v2.Bitangent, v3.Bitangent, b).Normalize()
 	v.Texture = InterpolateVectors(v1.Texture, v2.Texture, v3.Texture, b)
 	v.Color = InterpolateColors(v1.Color, v2.Color, v3.Color, b)
 	v.Output = InterpolateVectorWs(v1.Output, v2.Output, v3.Output, b)
