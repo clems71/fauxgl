@@ -6,6 +6,7 @@ import (
 )
 
 type Texture interface {
+	FastSample(u, v float64) Color
 	Sample(u, v float64) Color
 	BilinearSample(u, v float64) Color
 }
@@ -29,8 +30,14 @@ func NewImageTexture(im image.Image) Texture {
 	return &ImageTexture{size.X, size.Y, im}
 }
 
+func (t *ImageTexture) FastSample(u, v float64) Color {
+	x := int(u * float64(t.Width))
+	y := int(v * float64(t.Height))
+	return MakeColor(t.Image.At(x, y))
+}
+
 func (t *ImageTexture) Sample(u, v float64) Color {
-	v = 1 - v
+	// v = 1 - v
 	u -= math.Floor(u)
 	v -= math.Floor(v)
 	x := int(u * float64(t.Width))
@@ -39,7 +46,7 @@ func (t *ImageTexture) Sample(u, v float64) Color {
 }
 
 func (t *ImageTexture) BilinearSample(u, v float64) Color {
-	v = 1 - v
+	// v = 1 - v
 	u -= math.Floor(u)
 	v -= math.Floor(v)
 	x := u * float64(t.Width-1)
