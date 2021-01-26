@@ -70,6 +70,12 @@ func (t *Triangle) Transform(matrix Matrix) {
 	t.V1.Normal = matrix.MulDirection(t.V1.Normal)
 	t.V2.Normal = matrix.MulDirection(t.V2.Normal)
 	t.V3.Normal = matrix.MulDirection(t.V3.Normal)
+	t.V1.Tangent = matrix.MulDirection(t.V1.Tangent)
+	t.V2.Tangent = matrix.MulDirection(t.V2.Tangent)
+	t.V3.Tangent = matrix.MulDirection(t.V3.Tangent)
+	t.V1.Bitangent = matrix.MulDirection(t.V1.Bitangent)
+	t.V2.Bitangent = matrix.MulDirection(t.V2.Bitangent)
+	t.V3.Bitangent = matrix.MulDirection(t.V3.Bitangent)
 }
 
 func (t *Triangle) ReverseWinding() {
